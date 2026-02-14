@@ -1,0 +1,28 @@
+EXCEL with VBAs
+
+Add Developer Menu Option
+
+- From Customize the Ribbon, select 'Developer'
+
+Add Macro Menu Option
+
+- To add Macros section:
+  Select 'New Tab'
+  Create name: 'NOLP Macros' (or whatever)
+  While selecting newly created tab, (if this hasn't been done automatically) then press 'New Group' button and type name
+
+  From 'Choose commands from:' section, select 'Macros'
+  -  From Choose commands from:' side, select macro to add.
+  - From 'Customize the Ribbon' section, select 'Main Tabs' and select new tab and new group. 
+  - Press the middle button 'Add >>' to add macro to group (or any other command to any other group)
+
+VBA Window
+
+  Add RegEx:
+  - 'Tools' -> 'References' -> Check 'Microsoft VBAScript Regular Expressions 5' and select 'Ok' button
+  
+  Add Debug Menu (contains 'Step Into' button)
+  - Right click Menu bar and select 'Debug'
+
+Show PERSONAL Worksheet
+  - 'View' -> 'Unhide' (from 'Window' section) -> 'PERSONAL' -> press 'Ok'
