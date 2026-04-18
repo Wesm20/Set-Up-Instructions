@@ -1,4 +1,7 @@
 ;;; Set up init file at whatever file location below in 'custom-file' location
+;;; Need to copy/paste data file - gruber-darker-theme
+;;; where to paste it lol
+;;; Also, how to set up init file
 
 (setq custom-file "~/.emacs.init")
 
