@@ -1,10 +1,11 @@
-;; Emacs looks for init files in this order: ~/.eamcs -> ~/.emacs.el -> .emacs.d/init.el
-;; If not created, create it Ctrl + x & Ctrl + f type ~/.emacs or alternatives
-;; Paste to newly created ~/.emacs
-
 ;; My personal preferred sizes, font, etc.
 (custom-set-faces
-'(default ((t (:family "Courier New" :foundry "outline" :slant normal :weight regular :height 218 :width normal)))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Courier New" :foundry "outline" :slant normal :weight regular :height 218 :width normal))))
+ '(italic ((t (:slant italic)))))
 (setq custom-safe-themes t)
 
 ;; Prevent default load screen from loading
@@ -24,20 +25,60 @@
 (push '(fullscreen . maximized) default-frame-alist)
 
 ;; Tab indent mode (when press tab button, will indent 4)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(defun my-prog-mode-setup ()
+  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
+  (setq standard-indent 4)
+  (setq c-basic-offset 4)
+  (setq python-indent-offset 4)
+  (setq js-indent-level 4))
+
+(defun my-force-tab-indent ()
+  (interactive)
+  (insert "    ")) ;; 4 spaces
+
+(global-set-key (kbd "TAB") 'my-force-tab-indent)
+
+(defun unindent-region ()
+  "Unindent the current region or line by 4 spaces."
+  (interactive)
+  (if (use-region-p)
+      (indent-rigidly (region-beginning) (region-end) -4)
+    (indent-rigidly (line-beginning-position) (line-end-position) -4)))
+
+;; Bind Shift-Tab (often recognized as <backtab> in Emacs)
+(global-set-key (kbd "<backtab>") 'unindent-region)
 
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
  '(custom-enabled-themes '(gruber-darker))
  '(custom-safe-themes
    '("e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
- '(package-selected-packages '(gruber-darker-theme grugru))
+ '(package-selected-packages '(move-text gruber-darker-theme grugru))
  '(transient-mark-mode nil))
 
-;; M-x package-install RET 'multiple-cursors
 ;; Use multiple cursors
 (require 'multiple-cursors)
+
+;; ------ Initialize keybindings ------
+;; Mark Next Instance
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+
+;; Mark Previous Instance
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+
+;; Mark All instances
+(global-set-key (kbd "M-S-a") 'mc/mark-all-like-this)
+
+;; Edit Lines
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
