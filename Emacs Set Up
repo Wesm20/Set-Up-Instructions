@@ -82,3 +82,20 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+;; Shift + Tab indent all selected tabs
+(defun my-indent-region ()
+  (interactive)
+  (if (use-region-p)
+      (indent-rigidly (region-beginning) (region-end) 4)
+    (tab-to-tab-stop)))
+
+(defun my-unindent-region ()
+  (interactive)
+  (if (use-region-p)
+      (indent-rigidly (region-beginning) (region-end) -4)
+    (indent-for-tab-command)))
+
+;; Bind keys
+(global-set-key (kbd "<tab>") 'my-indent-region)
+(global-set-key (kbd "<backtab>") 'my-unindent-region)
