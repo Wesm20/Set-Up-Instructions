@@ -51,7 +51,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -83,19 +83,9 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-;; Shift + Tab indent all selected tabs
-(defun my-indent-region ()
-  (interactive)
-  (if (use-region-p)
-      (indent-rigidly (region-beginning) (region-end) 4)
-    (tab-to-tab-stop)))
+;; Add default bindings to Move-text (M - Up/Down to move current line of text)
+(require 'move-text)
+(move-text-default-bindings)
 
-(defun my-unindent-region ()
-  (interactive)
-  (if (use-region-p)
-      (indent-rigidly (region-beginning) (region-end) -4)
-    (indent-for-tab-command)))
-
-;; Bind keys
-(global-set-key (kbd "<tab>") 'my-indent-region)
-(global-set-key (kbd "<backtab>") 'my-unindent-region)
+;; Redefined C-x C-; to C-;
+(keymap-global-set "C-;" 'comment-line)
