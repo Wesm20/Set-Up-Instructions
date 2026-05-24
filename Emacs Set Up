@@ -62,7 +62,8 @@
  '(custom-enabled-themes '(gruber-darker))
  '(custom-safe-themes
    '("e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
- '(package-selected-packages '(move-text gruber-darker-theme grugru))
+ '(package-selected-packages
+   '(company corfu drag-stuff move-text gruber-darker-theme grugru))
  '(transient-mark-mode nil))
 
 ;; Use multiple cursors
@@ -84,8 +85,28 @@
 (put 'upcase-region 'disabled nil)
 
 ;; Add default bindings to Move-text (M - Up/Down to move current line of text)
-(require 'move-text)
-(move-text-default-bindings)
+(require 'drag-stuff)
+(drag-stuff-mode t)
+(drag-stuff-global-mode 1)
+(drag-stuff-define-keys)
 
-;; Redefined C-x C-; to C-;
+; Redefines
 (keymap-global-set "C-;" 'comment-line)
+
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-S-z") 'undo-redo)
+
+;; ido mode
+(require 'ido)
+(ido-mode t)
+
+;;company mode - autocomplete variables
+; (rc/require 'company)
+(require 'company)
+
+(add-hook 'prog-mode-hook 'company-mode)
+
+(add-hook 'tuareg-mode-hook
+          (lambda ()
+            (interactive)
+            (company-mode 0)))
