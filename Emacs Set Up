@@ -63,7 +63,7 @@
  '(custom-safe-themes
    '("e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
  '(package-selected-packages
-   '(company corfu drag-stuff move-text gruber-darker-theme grugru))
+   '(multiple-cursors company corfu drag-stuff move-text gruber-darker-theme grugru))
  '(transient-mark-mode nil))
 
 ;; Use multiple cursors
@@ -92,7 +92,6 @@
 
 ; Redefines
 (keymap-global-set "C-;" 'comment-line)
-
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-S-z") 'undo-redo)
 
@@ -110,3 +109,27 @@
           (lambda ()
             (interactive)
             (company-mode 0)))
+
+;; enable delete selection mode
+(delete-selection-mode)
+
+;; add shortcut for copy current line below
+(defun duplicate-current-line ()
+  "Duplicate the current line directly below."
+  (interactive)
+  (let ((text (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+    (save-excursion
+      (end-of-line)
+      (insert "\n" text))))
+
+;; Bind the function to Control-c followed by d
+(global-set-key (kbd "C-c d") 'duplicate-current-line)
+
+;; Bind compile shortcut to F5
+(global-set-key (kbd "<f5>") 'compile)
+
+;; Automatically save files without asking before running make
+(setq compilation-ask-about-save nil)
+
+;; Force Emacs to apply commands to all cursors by default
+(setq mc/always-run-for-all t)
