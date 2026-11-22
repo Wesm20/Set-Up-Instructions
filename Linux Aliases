@@ -1,0 +1,6 @@
+# Aliases
+
+alias us='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && flatpak update'
+alias rm='rm -i'
+alias reboot='shutdown -r now'
+alias shutdown='shutdown now'
