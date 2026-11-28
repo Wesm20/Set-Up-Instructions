@@ -1,4 +1,21 @@
+MacBook Setup - Linux Mint
+Install Linux Mint with USB
+Current Error: Kernel 7.0.0-44-generic
+Do not reboot after install in Linux Mint desktop enviornment
+sudo nano /etc/default/grub
+Change the following:
+  GRUB_TIMEOUT_STYLE=menu
+  GRUB_TIMEOUT=10
+sudo update-grub
+When in boot menu:
+  Advanced boot => Select 7.0... generic => Press 'e'
+  Edit line beginning with 'Linux' to: intel_iommu=off radeon.runpm=0 radeon.dpm=0 radeon.si_support=1 amdgpu.si_support=0
+  Press 'F10'
+Should boot into desktop. If not then good luck :)
+
 # Aliases
+
+# Command to get to aliases - sudo nano ~/.bashrc
 
 alias us='sudo apt update && sudo apt full-upgrade && sudo apt autoremove && flatpak update'
 alias rm='rm -i'
