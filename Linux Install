@@ -27,6 +27,11 @@ sudo apt update && sudo apt install pipx -y
 pipx ensurepath
 pipx install phoneintel
 
+sudo wget --no-hsts -P /etc/apt/sources.list.d/ \
+  http://dl.thorium.rocks/debian/dists/stable/thorium.list
+sudo apt update
+sudo apt install thorium-browser
+
 sudo apt install thorium-browser
 sudo apt install emacs
 
